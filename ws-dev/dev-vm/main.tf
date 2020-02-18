@@ -1,3 +1,9 @@
+locals {
+  install_ad_command   = "Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart"
+  exit_code_hack       = "exit 0"
+  powershell_command   = "${local.install_ad_command}; ${local.exit_code_hack}"
+}
+
 provider "azurerm" {
   version = "=1.44.0"
 }
@@ -33,7 +39,7 @@ resource "azurerm_network_interface" "dev" {
   }
 }
 
-resource "azurerm_virtual_machine" "main" {
+resource "azurerm_virtual_machine" "dev01" {
   name                          = "${var.prefix}-vm"
   location                      = azurerm_resource_group.demo.location
   resource_group_name           = azurerm_resource_group.demo.name
@@ -70,4 +76,20 @@ resource "azurerm_virtual_machine" "main" {
   tags = {
     environment = "development"
   }
+}
+
+resource "azurerm_virtual_machine_extension" "enable-hyper-v" {
+  name                 = "enable-hyper-v"
+  location             = azurerm_virtual_machine.dev01.location
+  resource_group_name  = azurerm_resource_group.demo.name
+  virtual_machine_name = azurerm_virtual_machine.dev01.name
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.9"
+
+  settings = <<SETTINGS
+    {
+        "commandToExecute": "powershell.exe -Command \"${local.powershell_command}\""
+    }
+SETTINGS
 }
