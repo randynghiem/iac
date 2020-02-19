@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local
+  vars_files:
+    - ["inventories/development/host_vars/dev.yml"]
+  tasks:
+    - name: Create resource group
+      azure_rm_resourcegroup:
+        name: "{{ resource_group_name }}"
+        location: southeastasia
+      register: rg
+    - debug:
+        var: rg

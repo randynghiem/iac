@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  vars_files:
+    - ["inventories/development/host_vars/win19.yml"]
+  tasks:
+    - name: Create resource group
+      azure_rm_resourcegroup:
+        name: "{{ resource_group_name }}"
+        location: southeastasia
+        state: absent
+      register: rg
