@@ -3,14 +3,15 @@
   hosts: localhost
   connection: local
   vars_files:
-    - ["inventories/development/host_vars/win19.yml"]
+    - inventories/development/host_vars/win19.yml
+    - inventories/development/vault.yml
   tasks:
     - name: create Azure resource group
       azure_rm_resourcegroup:
         name: "{{ resource_group }}"
         location: "{{ location }}"
         state: present
-      register: rg
+      register: rgdev
 
     - name: create Azure virtual network in resource group
       azure_rm_virtualnetwork:

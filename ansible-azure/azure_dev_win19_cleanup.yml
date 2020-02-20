@@ -3,11 +3,12 @@
   hosts: localhost
   connection: local
   vars_files:
-    - ["inventories/development/host_vars/win19.yml"]
+    - inventories/development/host_vars/win19.yml
   tasks:
     - name: remove Azure resource group
       azure_rm_resourcegroup:
         name: "{{resource_group}}"
         location: "{{location}}"
         state: absent
-      register: rg
+        force_delete_nonempty: yes
+      register: rgdev
