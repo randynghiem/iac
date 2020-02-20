@@ -1,0 +1,9 @@
+---
+- name: provision dev vm on Azure
+  hosts: localhost
+  connection: local
+  vars_files:
+    - inventories/development/host_vars/win19.yml
+    - inventories/development/vault.yml
+  roles:
+    - azure_dev_win19
