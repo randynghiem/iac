@@ -1,2 +1,5 @@
 ---
 # handlers file for devwin19
+- name: WinRM Enabled
+  debug:
+    msg: "WinRM enabled on dev server"

@@ -11,7 +11,7 @@
     name: "{{ vm_name }}"
     resource_group: "{{ resource_group }}"
     address_prefixes_cidr:
-      - 10.1.0.0/16
+      - 10.0.0.0/24
     state: present
 
 - name: create Azure subnet in virtualnetwork
@@ -20,7 +20,7 @@
     state: present
     virtual_network_name: "{{ vm_name }}"
     resource_group: "{{ resource_group }}"
-    address_prefix_cidr: 10.1.0.0/24
+    address_prefix_cidr: 10.0.0.0/28
 
 - name: create Azure storage account
   azure_rm_storageaccount:
@@ -36,12 +36,12 @@
     image:
       offer: WindowsServer
       publisher: MicrosoftWindowsServer
-      sku: 2016-Datacenter
+      sku: "{{vm_sku}}"
       version: latest
     name: "{{ vm_name }}"
     resource_group: "{{ resource_group }}"
     state: present
-    vm_size: Standard_D1
+    vm_size: "{{vm_size}}"
     storage_account_name: "{{ vm_name }}"
     virtual_network_name: "{{ vm_name }}"
     subnet_name: "{{ vm_name }}"
@@ -62,3 +62,4 @@
     port: 5986
     host: "{{azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress.properties.ipAddress}}"
     timeout: 600
+  notify: WinRM Enabled
