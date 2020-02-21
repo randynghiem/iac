@@ -1,0 +1,8 @@
+---
+# defaults file for azure_dev_wintools
+ansible_connection: winrm
+ansible_winrm_transport: ntlm
+ansible_winrm_server_cert_validation: ignore
+
+#On Client: 
+#Enable-WSManCredSSP -Role Server -Force

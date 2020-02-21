@@ -1,0 +1,4 @@
+---
+# vars file for azure_dev_wintools
+ansible_user: "{{vm_user}}"
+ansible_password: "{{vm_password}}"

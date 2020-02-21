@@ -27,6 +27,7 @@
     resource_group: "{{resource_group}}"
     name: "{{vm_name}}-pip"
     allocation_method: Dynamic
+    domain_name_label: "{{vm_name}}-pip-dnsnl"
 
 - name: Network security group provisioned
   azure_rm_securitygroup:
@@ -106,7 +107,7 @@
 
 - name: "Display PIP: {{demo_vmdev_pip}}"
   debug:
-    msg: "PIP: {{demo_vmdev_pip}}; test1: {{test1}}; test2: {{test2}}"
+    msg: "PIP: {{demo_vmdev_pip}}"
 
 - name: "WinRM Port online: {{demo_vmdev_pip}}"
   wait_for:

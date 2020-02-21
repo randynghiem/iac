@@ -8,4 +8,10 @@
     - inventories/development/vault.yml
   roles:
     - azure_dev_win19v2
-...
+
+- name: Install tools and features
+  hosts: dev
+  vars_files:
+    - inventories/development/vault.yml
+  roles:
+    - azure_dev_wintools
