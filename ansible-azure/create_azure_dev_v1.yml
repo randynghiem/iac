@@ -7,4 +7,5 @@
     - inventories/development/host_vars/win19.yml
     - inventories/development/vault.yml
   roles:
-    - azure_dev_win19
+    - azure_dev_win19v1
+...
