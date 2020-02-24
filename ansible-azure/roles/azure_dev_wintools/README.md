@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+DevTool role contains all the required development tools to develop cloud-native applications.
 
 Requirements
 ------------

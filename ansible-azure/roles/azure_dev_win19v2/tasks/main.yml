@@ -6,6 +6,7 @@
     tags:
       environment: "{{tag_env}}"
     location: "{{location}}"
+  register: azure_rg_dev
 
 - name: Virtual network provisioned
   azure_rm_virtualnetwork:
