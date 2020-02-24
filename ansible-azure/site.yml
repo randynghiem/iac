@@ -1,3 +1,0 @@
----
-## define the deployment topology
-- import_playbook: create_azure_dev_v2.yml
