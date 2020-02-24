@@ -1,2 +1,5 @@
 ---
 # handlers file for azure_dev_wintools
+- name: Reboot dev machine
+  win_reboot:
+    reboot_timeout: 600

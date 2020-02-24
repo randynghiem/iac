@@ -1,11 +1,5 @@
 ---
 # tasks file for azure_dev_wintools
-- name: Hyper-V installed
-  win_feature:
-    name: "Hyper-V"
-    include_management_tools: yes
-    state: present
-
 - name: Visual Studio Code installed
   win_chocolatey:
     name: vscode
@@ -23,3 +17,24 @@
     name: docker-desktop
     state: present
     version: "2.2.0.3"
+
+- name: NodeJS installed
+  win_chocolatey:
+    name: nodejs
+    state: present
+    version: "13.9.0"
+
+- name: Google Chrome installed
+  win_chocolatey:
+    name: googlechrome
+    state: present
+    version: "80.0.3987.116"
+
+- name: Hyper-V installed
+  win_feature:
+    name: "Hyper-V"
+    include_management_tools: yes
+    include_sub_features: yes
+    state: present
+  notify:
+    - Reboot dev machine
