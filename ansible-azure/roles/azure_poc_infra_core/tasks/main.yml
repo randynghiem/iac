@@ -1,21 +1,46 @@
 ---
 # tasks file for azure_poc_infra_core
-- name: Test debugger msg
-  debug:
-    msg: "Var: {{v_test}}" # not required. The customized message that is printed. If omitted, prints a generic message.
+- name: Resource group provisioned
+  azure_rm_resourcegroup:
+    name: "{{resource_group}}"
+    location: "{{location}}"
+    tags:
+      environment: "{{tag_env}}"
+  register: azure_rg_poc
 
-- name: Test debugger var
-  debug:
-    var: v_test
+- name: Virtual network provisioned
+  azure_rm_virtualnetwork:
+    resource_group: "{{resource_group}}"
+    name: "{{vnet_name}}"
+    tags:
+      environment: "{{tag_env}}"
+    address_prefixes_cidr:
+      - "{{vnet_cidr}}"
 
-- name: Test debugger var 2
-  debug:
-    var: v_test2
+- name: Subnet db tier provisioned
+  azure_rm_subnet:
+    resource_group: "{{resource_group}}"
+    virtual_network: "{{vnet_name}}"
+    name: "{{vnet_name}}-subnet-db"
+    address_prefix: "{{vnet_cidr_db}}"
 
-- name: Test debugger var 3
-  debug:
-    var: v_test3
+- name: Subnet app tier provisioned
+  azure_rm_subnet:
+    resource_group: "{{resource_group}}"
+    virtual_network: "{{vnet_name}}"
+    name: "{{vnet_name}}-subnet-app"
+    address_prefix: "{{vnet_cidr_app}}"
 
-- name: Display all ansible facts
-  debug:
-    var: ansible_facts
+- name: Subnet web tier provisioned
+  azure_rm_subnet:
+    resource_group: "{{resource_group}}"
+    virtual_network: "{{vnet_name}}"
+    name: "{{vnet_name}}-subnet-web"
+    address_prefix: "{{vnet_cidr_web}}"
+
+- name: Subnet dmz tier provisioned
+  azure_rm_subnet:
+    resource_group: "{{resource_group}}"
+    virtual_network: "{{vnet_name}}"
+    name: "{{vnet_name}}-subnet-dmz"
+    address_prefix: "{{vnet_cidr_dmz}}"

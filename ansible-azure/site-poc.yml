@@ -2,4 +2,5 @@
 # define deployment pology for POC
 # before running:
 #     export ANSIBLE_CONFIG==<path-to-config-file>/ansible.cfg
-- import_playbook: azure_poc_v1.yml
+- name: Deploy Azure POC
+  import_playbook: azure_poc_v1.yml

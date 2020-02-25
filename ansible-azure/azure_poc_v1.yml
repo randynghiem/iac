@@ -3,9 +3,16 @@
   hosts: localhost
   connection: local
   vars:
-    - v_test: from azure_poc_v1
-    - o_test2: from azure_poc_v1 for v_test2 via role param
-    - v_test3: from azure_poc_v1 for v_test3
+    resource_group: "poc_rg"
+    location: "southeastasia"
   roles:
     - role: azure_poc_infra_core
-      v_test: "{{o_test2}}"
+      when: poc_state | default('present') == 'present'
+  tasks:
+    - name: Clean resource group
+      azure_rm_resourcegroup:
+        name: "{{resource_group}}"
+        location: "{{location}}"
+        state: "absent"
+        force_delete_nonempty: yes
+      when: poc_state | default('present') == 'absent'

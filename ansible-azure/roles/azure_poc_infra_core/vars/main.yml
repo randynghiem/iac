@@ -1,4 +1,2 @@
 ---
 # vars file for azure_poc_infra_core
-v_test: "from roles/vars"
-v_test3: "from roles/vars + {{v_test2}}"
