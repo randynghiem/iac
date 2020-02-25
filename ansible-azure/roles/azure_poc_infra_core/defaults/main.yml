@@ -1,2 +1,5 @@
 ---
 # defaults file for azure_poc_infra_core
+v_test: from roles/default test1
+v_test2: from roles/default test2
+v_test3: from roles/default test3

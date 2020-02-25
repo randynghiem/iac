@@ -1,2 +1,21 @@
 ---
 # tasks file for azure_poc_infra_core
+- name: Test debugger msg
+  debug:
+    msg: "Var: {{v_test}}" # not required. The customized message that is printed. If omitted, prints a generic message.
+
+- name: Test debugger var
+  debug:
+    var: v_test
+
+- name: Test debugger var 2
+  debug:
+    var: v_test2
+
+- name: Test debugger var 3
+  debug:
+    var: v_test3
+
+- name: Display all ansible facts
+  debug:
+    var: ansible_facts

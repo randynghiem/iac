@@ -1,0 +1,11 @@
+---
+- name: POC Deployment
+  hosts: localhost
+  connection: local
+  vars:
+    - v_test: from azure_poc_v1
+    - o_test2: from azure_poc_v1 for v_test2 via role param
+    - v_test3: from azure_poc_v1 for v_test3
+  roles:
+    - role: azure_poc_infra_core
+      v_test: "{{o_test2}}"

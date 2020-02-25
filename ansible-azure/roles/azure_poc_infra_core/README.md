@@ -1,7 +1,7 @@
-Role Name
+Enable Azure Core Infrastructure
 =========
 
-A brief description of the role goes here.
+Provision Azure resource group, virtual network, subnet, etc.
 
 Requirements
 ------------
