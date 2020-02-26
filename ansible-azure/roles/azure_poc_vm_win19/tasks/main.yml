@@ -1,2 +1,87 @@
 ---
 # tasks file for azure_poc_vm_win19
+- name: Public IP Address provisioned
+  azure_rm_publicipaddress:
+    resource_group: "{{resource_group}}"
+    name: "{{vm_name}}-pip"
+    allocation_method: Dynamic
+    domain_name_label: "{{vm_name}}-pip-dnsnl"
+
+- name: Network security group provisioned
+  azure_rm_securitygroup:
+    resource_group: "{{resource_group}}"
+    name: "{{vm_name}}-sg"
+    rules:
+      - name: allow rdp
+        protocol: Tcp
+        destination_port_range: 3389
+        access: Allow
+        priority: 1001
+        direction: Inbound
+
+      - name: allow powershell remoting
+        protocol: Tcp
+        destination_port_range:
+          - 5985
+          - 5986
+        access: Allow
+        priority: 1002
+        direction: Inbound
+
+- name: Network interface provisioned
+  azure_rm_networkinterface:
+    resource_group: "{{resource_group}}"
+    name: "{{vm_name}}-nic"
+    subnet_name: "{{vnet_subnet}}"
+    virtual_network: "{{vnet_name}}"
+    enable_accelerated_networking: true
+    security_group: "{{vm_name}}-sg"
+    ip_configuration:
+      - name: default
+        public_ip_address_name: "{{vm_name}}-pip"
+        primary: true
+
+- name: VM provisioned
+  azure_rm_virtualmachine:
+    resource_group: "{{resource_group}}"
+    name: "{{vm_name}}"
+    managed_disk_type: Standard_LRS
+    network_interface_names: "{{vm_name}}-nic"
+    admin_password: "{{vm_password}}"
+    tags:
+      environment: "{{tag_env}}"
+    vm_size: "{{vm_size}}"
+    os_disk_size_gb: "200"
+    admin_username: "{{vm_user}}"
+    os_type: Windows
+    image:
+      offer: WindowsServer
+      publisher: MicrosoftWindowsServer
+      sku: "{{vm_sku}}"
+      version: latest
+
+- name: HTTPS WinRM Listener configured
+  azure_rm_virtualmachineextension:
+    resource_group: "{{resource_group}}" # required. Name of a resource group where the vm extension exists or will be created.
+    name: winrm-extension # required. Name of the vm extension
+    type_handler_version: "1.9" # not required. The type version of the extension handler.
+    auto_upgrade_minor_version: true # not required. Whether the extension handler should be automatically upgraded across minor versions.
+    virtual_machine_extension_type: CustomScriptExtension # not required. The type of the extension handler.
+    virtual_machine_name: "{{vm_name}}" # not required. The name of the virtual machine where the extension should be create or updated.
+    publisher: "Microsoft.Compute" # not required. The name of the extension handler publisher.
+    settings: '{"fileUris": ["https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"],"commandToExecute": "powershell -ExecutionPolicy Unrestricted -File ConfigureRemotingForAnsible.ps1"}'
+
+- name: Public IP Addresses retrieved
+  azure_rm_publicipaddress_info:
+    name: "{{vm_name}}-pip" # not required. Only show results for a specific Public IP.
+    resource_group: "{{resource_group}}" # not required. Limit results by resource group. Required when using name parameter.
+  register: demo_vmdev_piplist
+
+- name: First public IP address retrieved
+  set_fact: demo_vmdev_pip="{{demo_vmdev_piplist | json_query('publicipaddresses[0].ip_address')}}"
+
+- name: "WinRM Port online: {{demo_vmdev_pip}}"
+  wait_for:
+    port: 5986
+    host: "{{demo_vmdev_pip}}"
+    timeout: 600

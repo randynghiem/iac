@@ -1,5 +1,15 @@
 ---
 - hosts: localhost
-  remote_user: root
+  connection: local
+  vars:
+    resource_group: "poc_rg"
+    location: "southeastasia"
+    vnet_name: "poc_vnet"
+    vnet_subnet: "{{vnet_name}}-subnet-dmz"
+    vm_name: "poc-vm202002"
+    vm_sku: "2019-Datacenter"
+    vm_size: "Standard_F8s_v2"
+    vm_user: "randy"
+    tag_env: "POC"
   roles:
     - azure_poc_vm_win19
