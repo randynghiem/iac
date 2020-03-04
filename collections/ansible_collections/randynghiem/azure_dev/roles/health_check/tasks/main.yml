@@ -2,4 +2,4 @@
 # tasks file for health_check
 - name: Check default IP address
   debug:
-    msg: "{{ansible_default_ipv4.address | randynghiem.azure_dev.ipv4_split}}"
+    msg: "{{ ansible_default_ipv4.address | randynghiem.azure_dev.split_ip }}"
