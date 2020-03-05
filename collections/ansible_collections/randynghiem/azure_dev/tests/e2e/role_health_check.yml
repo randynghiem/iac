@@ -1,8 +1,0 @@
----
-- hosts: localhost
-  gather_facts: true
-  collections:
-    - randynghiem.azure_dev
-  tasks:
-    - import_role:
-        name: health_check
