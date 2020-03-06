@@ -2,7 +2,7 @@
 - hosts: localhost
   gather_facts: true
   vars:
-    resource_group: "demo_2020"
+    resource_group: "poc"
     location: "southeastasia"
   collections:
     - randynghiem.azure_dev
