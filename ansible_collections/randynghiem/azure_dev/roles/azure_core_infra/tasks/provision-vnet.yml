@@ -1,0 +1,35 @@
+---
+- name: Virtual network provisioned
+  azure_rm_virtualnetwork:
+    resource_group: "{{resource_group}}"
+    name: "{{vnet_name}}"
+    address_prefixes_cidr:
+      - "{{vnet_cidr}}"
+
+- name: Subnet db provisioned
+  azure_rm_subnet:
+    resource_group: "{{resource_group}}"
+    virtual_network: "{{vnet_name}}"
+    name: "{{subnet_db_name}}"
+    address_prefix: "{{subnet_db}}"
+
+- name: Subnet app provisioned
+  azure_rm_subnet:
+    resource_group: "{{resource_group}}"
+    virtual_network: "{{vnet_name}}"
+    name: "{{subnet_app_name}}"
+    address_prefix: "{{subnet_app}}"
+
+- name: Subnet web provisioned
+  azure_rm_subnet:
+    resource_group: "{{resource_group}}"
+    virtual_network: "{{vnet_name}}"
+    name: "{{subnet_web_name}}"
+    address_prefix: "{{subnet_web}}"
+
+- name: Subnet dmz provisioned
+  azure_rm_subnet:
+    resource_group: "{{resource_group}}"
+    virtual_network: "{{vnet_name}}"
+    name: "{{subnet_dmz_name}}"
+    address_prefix: "{{subnet_dmz}}"

@@ -1,2 +1,11 @@
 ---
 # vars file for azure_infra_core
+pip_name: "{{devops_vm_name}}-pip2020"
+pip_domain_name: "{{devops_vm_name}}rdn2020"
+sg_name: "{{devops_vm_name}}-sg2020"
+nic_name: "{{devops_vm_name}}-nic2020"
+subnet_db_name: "{{vnet_name}}-subnet-db"
+subnet_app_name: "{{vnet_name}}-subnet-app"
+subnet_web_name: "{{vnet_name}}-subnet-web"
+subnet_dmz_name: "{{vnet_name}}-subnet-dmz"
+vm_size: "Standard_DS3_v2"

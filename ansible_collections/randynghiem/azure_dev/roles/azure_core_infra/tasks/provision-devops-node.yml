@@ -1,0 +1,43 @@
+---
+- name: Public IP address provisioned
+  azure_rm_publicipaddress:
+    resource_group: "{{resource_group}}"
+    allocation_method: Static
+    name: "{{pip_name}}"
+    domain_name: "{{pip_domain_name}}"
+
+- name: Network security group provisioned
+  azure_rm_securitygroup:
+    resource_group: "{{resource_group}}"
+    name: "{{sg_name}}"
+    rules:
+      - name: SSH
+        protocol: Tcp
+        destination_port_range: 22
+        access: Allow
+        priority: 1001
+        direction: Inbound
+
+- name: Virtual network interface card provisioned
+  azure_rm_networkinterface:
+    resource_group: "{{resource_group}}"
+    name: "{{nic_name}}"
+    virtual_network: "{{vnet_name}}"
+    subnet: "{{subnet_dmz_name}}"
+    public_ip_name: "{{pip_name}}"
+    security_group: "{{sg_name}}"
+
+- name: Virtual Machine provisioned
+  azure_rm_virtualmachine:
+    resource_group: "{{resource_group}}"
+    name: "{{devops_vm_name}}"
+    vm_size: "{{vm_size}}"
+    admin_username: "{{test_user}}"
+    admin_password: "{{test_password}}"
+    ssh_password_enabled: true
+    network_interfaces: "{{nic_name}}"
+    image:
+      offer: CentOS
+      publisher: OpenLogic
+      sku: "7.7"
+      version: latest

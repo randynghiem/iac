@@ -2,15 +2,9 @@
 - hosts: 127.0.0.1
   connection: local
   gather_facts: true
-  vars:
-    resource_group: "poc"
-    location: "southeastasia"
-    vnet_name: "poc_vnet"
-    vnet_cidr: "10.0.0.0/24"
-    subnet_db: "10.0.0.0/28"
-    subnet_app: "10.0.0.16/28"
-    subnet_web: "10.0.0.32/28"
-    subnet_dmz: "10.0.0.240/28"
+  vars_files:
+    - test_vars.yml
+    - test_vault.yml
   collections:
     - randynghiem.azure_dev
   tasks:

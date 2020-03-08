@@ -1,0 +1,6 @@
+---
+- name: Resource group provisioned
+  azure_rm_resourcegroup:
+    name: "{{resource_group}}"
+    location: "{{location}}"
+  register: azure_rg_core

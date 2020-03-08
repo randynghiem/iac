@@ -1,42 +1,5 @@
 ---
 # tasks file for azure_infra_core
-- name: Resource group provisioned
-  azure_rm_resourcegroup:
-    name: "{{resource_group}}"
-    location: "{{location}}"
-  register: azure_rg_core
-
-- name: Virtual network provisioned
-  azure_rm_virtualnetwork:
-    resource_group: "{{resource_group}}"
-    name: "{{vnet_name}}"
-    address_prefixes_cidr:
-      - "{{vnet_cidr}}"
-
-- name: Subnet db provisioned
-  azure_rm_subnet:
-    resource_group: "{{resource_group}}"
-    virtual_network: "{{vnet_name}}"
-    name: "{{vnet_name}}-subnet-db"
-    address_prefix: "{{subnet_db}}"
-
-- name: Subnet app provisioned
-  azure_rm_subnet:
-    resource_group: "{{resource_group}}"
-    virtual_network: "{{vnet_name}}"
-    name: "{{vnet_name}}-subnet-app"
-    address_prefix: "{{subnet_app}}"
-
-- name: Subnet web provisioned
-  azure_rm_subnet:
-    resource_group: "{{resource_group}}"
-    virtual_network: "{{vnet_name}}"
-    name: "{{vnet_name}}-subnet-web"
-    address_prefix: "{{subnet_web}}"
-
-- name: Subnet dmz provisioned
-  azure_rm_subnet:
-    resource_group: "{{resource_group}}"
-    virtual_network: "{{vnet_name}}"
-    name: "{{vnet_name}}-subnet-dmz"
-    address_prefix: "{{subnet_dmz}}"
+- include_tasks: provision-resource-group.yml
+- include_tasks: provision-vnet.yml
+- include_tasks: provision-devops-node.yml
