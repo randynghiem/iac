@@ -12,3 +12,13 @@
         name: health_check
   roles:
     - role: azure_core_infra
+
+- hosts: devops_vm
+  gather_facts: true
+  vars_files:
+    - test_vars.yml
+    - test_vault.yml
+  collections:
+    - randynghiem.azure_dev
+  roles:
+    - role: devops_node

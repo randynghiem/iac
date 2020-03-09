@@ -1,0 +1,5 @@
+---
+# tasks file for devops_node
+- name: Check host name
+  debug:
+    msg: "{{devops_dns_name}}"

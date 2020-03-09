@@ -33,8 +33,10 @@
     name: "{{devops_vm_name}}"
     vm_size: "{{vm_size}}"
     admin_username: "{{test_user}}"
-    admin_password: "{{test_password}}"
-    ssh_password_enabled: true
+    ssh_password_enabled: false
+    ssh_public_keys:
+      - path: /home/randy/.ssh/authorized_keys
+        key_data: "{{key_data}}"
     network_interfaces: "{{nic_name}}"
     image:
       offer: CentOS
