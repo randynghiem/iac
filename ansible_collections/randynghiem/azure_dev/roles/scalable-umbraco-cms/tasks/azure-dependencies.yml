@@ -1,4 +1,6 @@
 ---
-- name: Provision Azure dependencies
-  debug:
-    msg: Provisioning azure dependencies
+- name: Provision resource group
+  azure_rm_resourcegroup:
+    name: "{{resource_group}}"
+    state: present
+    location: "{{location}}"

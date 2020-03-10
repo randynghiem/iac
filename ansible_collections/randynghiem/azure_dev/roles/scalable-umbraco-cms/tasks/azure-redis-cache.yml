@@ -1,4 +1,6 @@
 ---
 - name: Provision Azure cache for redis
-  debug:
-    msg: "provision redis cache"
+  azure_rm_rediscache:
+    resource_group: "{{resource_group}}"
+    name: "{{redis_cache_name}}"
+    sku: "{{redis_cache_service_tier}}"

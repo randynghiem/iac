@@ -2,3 +2,18 @@
 # defaults file for scalable-umbraco-cms
 resource_group: poc
 location: southeastasia
+app_name: "cms"
+app_service_tier: "Standard"
+app_service_worker_size: 1
+db_server_name: "cms_server"
+db_admin_login: "admin"
+db_admin_password: ""
+db_name: "cmd_db"
+db_edition: "Basic"
+db_non_admin_username: "user"
+db_non_admin_password: ""
+storage_account_type: "Standard_LRS"
+redis_cache_name: "cms-redis2020"
+redis_cache_service_tier:
+  name: basic
+  size: C1
