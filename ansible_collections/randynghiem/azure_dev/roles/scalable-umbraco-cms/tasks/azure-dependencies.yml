@@ -1,0 +1,4 @@
+---
+- name: Provision Azure dependencies
+  debug:
+    msg: Provisioning azure dependencies

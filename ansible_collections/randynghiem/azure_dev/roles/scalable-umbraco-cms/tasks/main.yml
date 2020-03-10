@@ -1,0 +1,12 @@
+---
+# Implementation of scalable umbraco cms on azure
+- name: Azure dependencies
+  include_tasks: azure-dependencies.yml
+- name: Azure SQL Database
+  include_tasks: azure-sql-database.yml
+- name: Azure Redis Cache
+  include_tasks: azure-redis-cache.yml
+- name: Azure Storage Account
+  include_tasks: azure-storage-account.yml
+- name: Azure Web App
+  include_tasks: azure-web-app.yml

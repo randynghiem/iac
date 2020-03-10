@@ -1,0 +1,4 @@
+---
+- name: Provision Azure cache for redis
+  debug:
+    msg: "provision redis cache"

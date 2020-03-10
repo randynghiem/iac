@@ -1,0 +1,4 @@
+---
+- name: Provision storage accounts
+  debug:
+    msg: Provision azure storage accounts

@@ -1,0 +1,4 @@
+---
+- name: Provision Azure sql database
+  debug:
+    msg: "provision Azure sql database"

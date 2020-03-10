@@ -1,0 +1,8 @@
+---
+- name: Provision Umbraco Frontend
+  debug:
+    msg: Provision Umbraco Frontend
+
+- name: Provision Umbraco Admin
+  debug:
+    msg: Provision Umbraco Admin
