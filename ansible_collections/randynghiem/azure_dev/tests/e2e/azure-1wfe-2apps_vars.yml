@@ -12,12 +12,12 @@ vnet:
       cidr: 10.0.0.16/28
     - name: poc-vnet-web
       cidr: 10.0.0.32/28
-nodes:
+vmlist:
   - name: "poc-wfe1"
     vm_size: "Standard_DS3_v2"
     subnet_name: "poc-vnet-web"
     nic_name: "poc-wfe1-nic"
-    ip_address: "10.0.0.4"
+    ip_address: "10.0.0.36"
   - name: "poc-app1"
     vm_size: "Standard_DS3_v2"
     subnet_name: "poc-vnet-app"

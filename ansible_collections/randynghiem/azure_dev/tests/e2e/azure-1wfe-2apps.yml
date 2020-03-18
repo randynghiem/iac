@@ -25,3 +25,7 @@
         name: "{{item.name}}"
         address_prefix_cidr: "{{item.cidr}}"
       with_items: "{{vnet.subnets}}"
+
+    - name: Provision VMs
+      include_tasks: azure-1wfe-2apps_vm.yml
+      with_items: "{{vmlist}}"
