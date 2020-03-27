@@ -1,0 +1,22 @@
+---
+- name: Ensure prerequisites
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+    - ../vars/main.yml
+  tasks:
+    - name: Ensure resource group
+      azure_rm_resourcegroup:
+        name: "{{resource_group.name}}"
+        state: present
+        location: "{{resource_group.location}}"
+
+- name: Deploy TODO apps
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  collections:
+  - randynghiem.azure_dev
+  roles:
+    - azure_docker_todos

@@ -1,0 +1,13 @@
+---
+# tasks file for azure_docker_todos
+- name: Create ACR
+  include_tasks: 00-create-acr.yml
+
+- name: Create cosmosdb
+  include_tasks: 01-create-cosmosdb.yml
+
+- name: Create app service plan
+  include_tasks: 02-create-app-service-plan.yml
+
+- name: Create Azure WebApp
+  include_tasks: 03-create-azure-webapp.yml

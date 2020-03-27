@@ -1,0 +1,8 @@
+---
+- name: Create an Azure App Service Plan for TODO Application
+  azure_rm_appserviceplan:
+    name: "{{ app.name }}-appservice-plan"
+    is_linux: true
+    number_of_workers: 1
+    resource_group: "{{ resource_group.name }}"
+    sku: F1

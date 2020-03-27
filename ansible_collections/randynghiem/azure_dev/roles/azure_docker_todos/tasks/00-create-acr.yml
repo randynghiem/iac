@@ -1,0 +1,29 @@
+---
+- name: Create ACR
+  azure_rm_containerregistry:
+    resource_group: "{{resource_group.name}}"
+    name: "{{acr.name}}"
+    admin_user_enabled: true
+    sku: Basic
+  register: acr_output
+
+- name: Getting ACR name
+  set_fact:
+    acrusername: "{{acr_output.name}}"
+
+- name: Getting ACR password
+  set_fact:
+    acrpassword: "{{acr_output.credentials.password}}"
+
+- name: Getting ACR Host
+  set_fact:
+    acrhostname: "{{acr_output.login_server}}"
+
+- debug:
+    msg: "ACR Username: {{acrusername}}"
+
+- debug:
+    msg: "ACR Password: {{acrpassword}}"
+
+- debug:
+    msg: "ACR Host Name: {{acrhostname}}"

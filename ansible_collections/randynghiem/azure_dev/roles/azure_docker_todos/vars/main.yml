@@ -1,0 +1,9 @@
+---
+# vars file for azure_docker_todos
+resource_group:
+  name: demopoc
+  location: southeastasia
+acr:
+  name: demopoc202003
+app:
+  name: "demopocapp"
